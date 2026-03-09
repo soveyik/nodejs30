@@ -22,8 +22,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use((req, res, next) =>{
+  console.log("ben app.js de tanımlanan bir middleware'im");
+  next();
+});
+
+app.use('/api' , require('./routes/index'));//http://localhost:3000
+// app.use('/users', require('./routes/users')); //http://localhost:3000/users
+// app.use('/auditlogs', require('./routes/auditlogs'));//http://localhost:3000/auditlogs
+// app.use('/categories', require('./rotes/categories'));//http://localhost:3000/categories
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
